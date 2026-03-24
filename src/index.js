@@ -22,8 +22,8 @@ app.use(cors({
 app.use(express.json());
 
 // ── Routes ──────────────────────────────────────────────────────────────────
-app.use('/api/auth',    require('./routes/auth'));
-app.use('/api/habits',  require('./routes/habits'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/habits', require('./routes/habits'));
 app.use('/api/history', require('./routes/history'));
 
 // ── Health check ────────────────────────────────────────────────────────────
