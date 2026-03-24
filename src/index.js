@@ -11,14 +11,19 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:5173',
   'http://localhost:5173',
+  'https://hackwithhabits.vercel.app',
 ];
 app.use(cors({
   origin: (origin, cb) => {
     if (!origin || allowedOrigins.includes(origin)) cb(null, true);
-    else cb(null, true); // Allow all in production for flexibility
+    else cb(null, true);
   },
   credentials: true,
 }));
+
+// Explicitly handle preflight
+app.options('*', cors());
+
 app.use(express.json());
 
 // ── Routes ──────────────────────────────────────────────────────────────────
