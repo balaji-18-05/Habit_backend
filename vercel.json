@@ -9,18 +9,8 @@
   "routes": [
     {
       "src": "/(.*)",
-      "methods": ["OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "https://hackwithhabits.vercel.app",
-        "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type,Authorization",
-        "Access-Control-Allow-Credentials": "true"
-      },
-      "dest": "src/index.js"
-    },
-    {
-      "src": "/(.*)",
       "dest": "src/index.js"
     }
   ]
 }
+
