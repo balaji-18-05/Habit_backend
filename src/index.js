@@ -30,6 +30,16 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// ── Ensure DB is connected before every request (critical for serverless) ───
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
 // ── Routes ──────────────────────────────────────────────────────────────────
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/habits', require('./routes/habits'));
@@ -47,13 +57,13 @@ app.use(errorHandler);
 // ── Start (local dev only, Vercel uses module.exports) ───────────────────────
 const PORT = process.env.PORT || 3001;
 
-connectDB().then(() => {
-  if (!process.env.VERCEL) {
+if (!process.env.VERCEL) {
+  connectDB().then(() => {
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
-  }
-});
+  });
+}
 
 // Export for Vercel serverless
 module.exports = app;
